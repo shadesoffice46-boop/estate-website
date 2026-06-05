@@ -62,7 +62,7 @@ export function Hero() {
             className="mb-6 inline-flex items-center gap-2.5 rounded-full border border-white/25 bg-white/10 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.18em] text-white/90 backdrop-blur-sm"
           >
             <span className="h-1.5 w-1.5 rounded-full bg-brown-taupe" />
-            Boutique real estate, since 2010
+            Boutique real estate · trusted since 2010
           </motion.p>
 
           <motion.h1
