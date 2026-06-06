@@ -8,6 +8,7 @@ import { Services } from "@/components/Services";
 import { Agents } from "@/components/Agents";
 import { Testimonials } from "@/components/Testimonials";
 import { CTABanner } from "@/components/CTABanner";
+import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
 
 export default function Home() {
@@ -24,6 +25,7 @@ export default function Home() {
         <Agents />
         <Testimonials />
         <CTABanner />
+        <Contact />
       </main>
       <Footer />
     </>

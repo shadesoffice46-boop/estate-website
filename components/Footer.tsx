@@ -36,10 +36,7 @@ export function Footer() {
   const [sent, setSent] = useState(false);
 
   return (
-    <footer
-      id="contact"
-      className="grain scroll-mt-24 bg-[#0f2747] text-white"
-    >
+    <footer className="grain bg-[#0f2747] text-white">
       <div className="container-page py-20 md:py-24">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1.4fr]">
           {/* Brand + tagline */}
