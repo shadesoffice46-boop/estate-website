@@ -1,4 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
+import { createHash } from "crypto";
 import { validateInquiry } from "@/lib/validation";
 import { rateLimit } from "@/lib/rate-limit";
 
@@ -96,9 +97,18 @@ export async function POST(req: NextRequest) {
         name: result.data.name,
         email: result.data.email,
         message: result.data.message,
+        // Honeypot is forwarded so n8n can apply its own check too (defense in depth).
+        company: "",
         meta: {
           userAgent: req.headers.get("user-agent") ?? null,
           submittedAt: new Date().toISOString(),
+          // Raw IP never leaves the server — only a salted hash for abuse stats.
+          ipHash:
+            ip === "unknown"
+              ? null
+              : createHash("sha256")
+                  .update(ip + (process.env.IP_HASH_SALT ?? ""))
+                  .digest("hex"),
         },
       }),
       signal: AbortSignal.timeout(10_000),

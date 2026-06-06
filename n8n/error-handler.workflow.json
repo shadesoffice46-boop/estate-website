@@ -1,0 +1,35 @@
+{
+  "name": "ESTATE Error Handler",
+  "settings": { "executionOrder": "v1" },
+  "nodes": [
+    {
+      "id": "errtrigger",
+      "name": "Error Trigger",
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "position": [0, 0],
+      "parameters": {}
+    },
+    {
+      "id": "errmail",
+      "name": "Email Error",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [240, 0],
+      "parameters": {
+        "fromEmail": "={{ $env.MAIL_FROM }}",
+        "toEmail": "={{ $env.INTERNAL_NOTIFY_EMAIL }}",
+        "subject": "={{ 'n8n ERROR: ' + ($json.workflow && $json.workflow.name ? $json.workflow.name : 'unknown workflow') }}",
+        "emailFormat": "text",
+        "text": "={{ 'A workflow failed.\\n\\nWorkflow: ' + ($json.workflow && $json.workflow.name ? $json.workflow.name : '') + '\\nFailed node: ' + ($json.execution && $json.execution.lastNodeExecuted ? $json.execution.lastNodeExecuted : '') + '\\nError: ' + ($json.execution && $json.execution.error && $json.execution.error.message ? $json.execution.error.message : '') + '\\nExecution URL: ' + ($json.execution && $json.execution.url ? $json.execution.url : '') }}",
+        "options": {}
+      },
+      "credentials": {
+        "smtp": { "id": "uHgWXSK4YVT0NQGu", "name": "ESTATE SMTP (FILL IN)" }
+      }
+    }
+  ],
+  "connections": {
+    "Error Trigger": { "main": [[{ "node": "Email Error", "type": "main", "index": 0 }]] }
+  }
+}
